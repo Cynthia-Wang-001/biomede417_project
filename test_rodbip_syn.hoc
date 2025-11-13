@@ -1,0 +1,22 @@
+objref gradsyn, rod, bip, inj
+load_file("Rod.tem")
+load_file("Bip.tem")
+
+rod = new Rod()
+inj = new IinjLT(0.5)
+inj.del = 5000
+inj.ton = 10000
+inj.amp=50
+
+bip = new Bip()
+bip.soma gradsyn = new GradSyn()
+bip.soma gradsyn.loc(1)
+setpointer gradsyn.V_pre, rod.soma.v(1)
+gradsyn.e = 0
+gradsyn.V_thr = -44
+
+
+load_file("test_rodbip.ses")
+
+
+
