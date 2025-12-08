@@ -13,6 +13,8 @@ graphList[1].append(save_window_)
 save_window_.save_name("graphList[1].")
 save_window_.addexpr("brightcurr[26][11].i*-1", 1, 1, 0.8, 0.9, 2)
 }
+
+
 {
 save_window_ = new Graph(0)
 save_window_.size(0,6500,-70,-42)
@@ -22,7 +24,12 @@ graphList[1].append(save_window_)
 save_window_.save_name("graphList[1].")
 save_window_.addexpr("rod[26][11].soma.v( 0.5 )", 1, 1, 0.629659, 1.01177, 2)
 save_window_.addexpr("rod[26][10].soma.v( 0.5 )", 2, 1, 0.627655, 1.00161, 2)
+save_window_.addexpr("rod[35][15].soma.v( 0.5 )", 3, 1, 0.627655, 1.00161, 2)
+save_window_.addexpr("rod[40][25].soma.v( 0.5 )", 4, 1, 0.627655, 1.00161, 2)
+save_window_.addexpr("rod[10][10].soma.v( 0.5 )", 5, 1, 0.627655, 1.00161, 2)
 }
+
+
 {
 save_window_ = new Graph(0)
 save_window_.size(-100,6500,-66,27)
@@ -32,6 +39,55 @@ graphList[1].append(save_window_)
 save_window_.save_name("graphList[1].")
 save_window_.addvar("GAN[0][0].soma.v( 0.5 )", 1, 1, 0.8, 0.9, 2)
 }
+
+
+// new outputs
+
+
+{
+save_window_ = new Graph(0)
+save_window_.size(-100,6500,-70,30)
+scene_vector_[6] = save_window_
+{save_window_.view(-100, -70, 6600, 75, 800, 610, 651.84, 429.76)}
+graphList[1].append(save_window_)
+save_window_.save_name("graphList[1].")
+save_window_.addvar("cone[0][0].soma.v(0.5)", 1, 1, 0.8, 0.9, 2)
+save_window_.addvar("cone[1][2].soma.v(0.5)", 1, 1, 0.8, 0.9, 2)
+save_window_.addvar("cone[1][3].soma.v(0.5)", 1, 1, 0.8, 0.9, 2)
+save_window_.addvar("cone[2][3].soma.v(0.5)", 1, 1, 0.8, 0.9, 2)
+}
+
+
+
+
+{
+save_window_ = new Graph(0)
+save_window_.size(-100,6500,-70,30)
+scene_vector_[5] = save_window_
+{save_window_.view(-100, -70, 6600, 100, 100, 610, 651.84, 429.76)}
+graphList[1].append(save_window_)
+save_window_.save_name("graphList[1].")
+save_window_.addvar("rod_bip[0][0].soma.v(0.5)", 1, 1, 0.8, 0.9, 2)
+}
+
+
+{
+save_window_ = new Graph(0)
+save_window_.size(-100,6500,-70,30)
+scene_vector_[6] = save_window_
+{save_window_.view(-100, -70, 6600, 100, 900, 610, 651.84, 429.76)}
+graphList[1].append(save_window_)
+save_window_.save_name("graphList[1].")
+save_window_.addvar("cone_bip[0][0].soma.v(0.5)", 1, 1, 0.8, 0.9, 2)
+}
+
+
+
+
+
+
+
+
 {
 xpanel("RunControl", 0)
 v_init = -41.5
@@ -59,3 +115,4 @@ xpanel(55,175)
 }
 objectvar scene_vector_[1]
 {doNotify()}
+
