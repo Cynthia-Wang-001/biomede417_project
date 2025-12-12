@@ -1,171 +1,9 @@
-////=================================================================
-////                  Load cells templates		changed!	  //
-////=================================================================
-//
-//load_file("RP_Rod.tem")
-//load_file("Cone.tem")
-//load_file("Bip.tem")
-//load_file("A2.tem")
-//load_file("Ganglion.tem")
-//
-//objref rod_bip[nrodbipx][nrodbipy], rod[nrodx][nrody], cone[nconex][nconey]
-//objref A2_cell[na2x][na2y],GAN[nganx][ngany], cone_bip[nconebipx][nconebipy]
-//objref brightcurr[nrodx][nrody],dimcurr[nrodx][nrody],input_cone[nconex][nconey],random
-//random = new Random(seed)
-//
-///*//Definition of noise*/
-///*objref noise_coe
-//noise_coe = new Random()
-//noise_coe.normal(0,1)
-//Max_noise = 0.02*/
-///*//objref noise = Max_noise * noise_coe*/
-//
-////=================================================================
-////                      Create cells				  //
-////=================================================================
-//print "Creating cells. This may take some time."
-//
-//// Create Rods
-//
-//  for i = 0, nrodx-1 {
-//    for j = 0, nrody-1 {
-//      rod[i][j] = new Rod()
-//    }
-//  }
-//
-//// Create Cones
-//
-//  for i = 0, nconex-1 {
-//    for j = 0, nconey-1 {
-//      cone[i][j] = new Cone()
-//    }
-//  }
-//
-//// Create Rod bipolar cell
-//
-//  for i = 0, nrodbipx-1 {
-//    for j = 0, nrodbipy-1 {
-//      rod_bip[i][j] = new Bip()
-//    }
-//  }
-//
-//// Create Cone bipolar cell
-//
-//  for i = 0, nconebipx-1 {
-//    for j = 0, nconebipy-1 {
-//      cone_bip[i][j] = new Bip()
-//      cone_bip[i][j].soma.gkabar_IA(0.5) = 0   // USUI et al.
-//    }
-//  }
-//
-//// Create A2
-//
-//  for i = 0, na2x-1 {
-//    for j = 0, na2y-1 {
-//      A2_cell[i][j] = new A2()
-//    }
-//  }
-//
-//
-//// Create Ganglion
-//
-//  for i = 0, nganx-1 {
-//    for j = 0, ngany-1 {
-//      GAN[i][j] = new Ganglion()
-//    }
-//  }
-//
-//
-//
-////=================================================================
-////                      Add input currents	changed!	       	  //
-////=================================================================
-//
-//
-//
-//proc insert_iclamps() { local k,m,ii,jj , noise  // 1 arg - amp !!
-///*add a variable:noise (coefficient(0,1) * max_noise)*/
-//
-//
-// InputNumber =   ($2/100)*rodtotal
-//
-//  printf ("\n%d Rods receiving input\n",InputNumber)
-//
-//  for k = 0, nrodx-1 {
-//    for m = 0, nrody-1 {
-//      rod[k][m].soma brightcurr[k][m] = new IinjLT(0.5)
-//      brightcurr[k][m].del = stim_init
-//      brightcurr[k][m].ton = 6000
-//      brightcurr[k][m].amp =0
-//
-//      rod[k][m].soma dimcurr[k][m] = new IinjLTDim(0.5)
-//      dimcurr[k][m].del = stim_init
-//      dimcurr[k][m].ton = 6000
-//      dimcurr[k][m].ssI=0
-//      dimcurr[k][m].amp =0
-//	}
-//   }
-//
-//
-//
-// for k = 0, nconex-1 {   // Dark current in cones
-//    for m = 0, nconey-1 {
-//      cone[k][m].soma input_cone[k][m] = new IinjLT_cone(0.5)
-//      input_cone[k][m].amp=0
-//      input_cone[k][m].del = 0
-//      input_cone[k][m].ton = 6000
-//	}
-//   }
-//
-//for i=0,InputNumber {
-//
-//  ii = int(random.uniform(0, nrodx))
-//  if (ii == nrodx ) { ii=nrodx-1 }
-//  jj = int(random.uniform(0, nrody))
-//  if (jj == nrody ) { jj=nrody-1 }
-//
-//  //add noise in current
-//  noise = Max_noise * noise_coe.repick()
-//
-//  if ($1>=30) {
-//
-//  brightcurr[ii][jj].amp = $1 }else{
-//  dimcurr[ii][jj].amp = $1  }
-//  i=i+1
-//
-//	}
-//
-//} // end proc
-//
-////=================================================================
-////                      Change Ih conductance	changed!!	       	  //
-////=================================================================
-//
-//proc block_ih(){
-////add Ih
-//Increase_Ih_factor = 0.1 /*//?*/
-//for i = 0, nrodx-1 {
-//    for j = 0, nrody-1 {
-//      rod[i][j].soma.ghbar_h=$1 * (1+Increase_Ih_factor)
-//    }
-//  }
-//}
-//
-//  printf("\n")
-//  access rod[0][0].soma
-//
-//printf ("%d Rods created\n",rodtotal)
-//printf ("%d Cones created\n",conetotal)
-//printf ("%d Bipolar cells created\n",nrodbipx*nrodbipy)
-//printf ("%d A2 Amacrine cells created\n",A2total)
-//printf ("%d Ganglion cells created\n",gantotal)
-
 //=================================================================
-//                  Load cells templates		changed!
-//
+//                  Load cells templates            //
 //=================================================================
 
-load_file("RP_Rod.tem")
+
+load_file("Rod.tem")
 load_file("Cone.tem")
 load_file("Bip.tem")
 load_file("A2.tem")
@@ -174,180 +12,303 @@ load_file("Ganglion.tem")
 objref rod_bip[nrodbipx][nrodbipy], rod[nrodx][nrody], cone[nconex][nconey]
 objref A2_cell[na2x][na2y],GAN[nganx][ngany], cone_bip[nconebipx][nconebipy]
 objref brightcurr[nrodx][nrody],dimcurr[nrodx][nrody],input_cone[nconex][nconey],random
-// healthy (1)  dead (0)
-objref rod_healthy[nrodx][nrody]
 random = new Random(seed)
 
 
-//=================================================================
+// healthy (1)  dead (0)
+double rod_healthy[nrodx][nrody]
+double cone_healthy[nrodx][nrody]
+
+
+random = new Random(seed)
+
+
 //                      RP Disease Parameter
 //=================================================================
 // we try to randomly pick some cells to dead mode (lose junctions?
-//40% of the rod cells are healthy, others are dead
-rod_left = 0.4
+//1&1, 40%&70%,10%&50%
+
+rod_left = 1
+cone_left = 1
+
+/*rod_left = 0.4
+cone_left = 0.7*/
+
+/*rod_left = 0.1
+cone_left = 0.5*/
+
 
 
 //=================================================================
-//                      Create cells				  //
+//                      Create cells               //
 //=================================================================
 print "Creating cells. This may take some time."
 
-  for i = 0, nrodx-1 {
-    for j = 0, nrody-1 {
 
-     //use uniform to generate random number and represent cell status
-      if (random.uniform(0, 1) <= rod_left) {
-        rod[i][j] = new Rod()
-        rod_healthy[i][j] = 1
-      } else {
-        rod_healthy[i][j] = 0
+// Create Rods
+
+
+
+
+ for i = 0, nrodx-1 {
+   for j = 0, nrody-1 {
+    //use uniform to generate random number and represent cell status
+     if (random.uniform(0, 1) <= rod_left) {
+       rod_healthy[i][j] = 1
+       rod[i][j] = new Rod()
+     } else {
+       rod_healthy[i][j] = 0
+       rod[i][j] = new Rod()
+     }
+   }
+ }
+
+
+
+// Create Cones
+
+  /*for i = 0, nconex-1 {
+    for j = 0, nconey-1 {
+      cone[i][j] = new Cone()
+    }
+  }*/
+
+  for i = 0, nconex-1{
+    for j = 0,nconey-1{
+        if (random.uniform(0, 1) <= cone_left) {
+            cone_healthy[i][j] = 1
+            cone[i][j] = new Cone()
+        } else {
+            cone_healthy[i][j] = 0
+            cone[i][j] = new Cone()
       }
     }
   }
 
-//=================================================================
-//           Create cells (other kinds of cells didn't change)  //
-//=================================================================
 
-// Create Cones
 
-  for i = 0, nconex-1 {
-    for j = 0, nconey-1 {
-      cone[i][j] = new Cone()
-    }
-  }
 
 // Create Rod bipolar cell
 
-  for i = 0, nrodbipx-1 {
-    for j = 0, nrodbipy-1 {
-      rod_bip[i][j] = new Bip()
 
-  }
-  }
+ for i = 0, nrodbipx-1 {
+   for j = 0, nrodbipy-1 {
+     rod_bip[i][j] = new Bip()
+   }
+ }
+
 
 // Create Cone bipolar cell
 
-  for i = 0, nconebipx-1 {
-    for j = 0, nconebipy-1 {
-      cone_bip[i][j] = new Bip()
-      cone_bip[i][j].soma.gkabar_IA(0.5) = 0   // USUI et al.
-  }
-  }
+
+ for i = 0, nconebipx-1 {
+   for j = 0, nconebipy-1 {
+     cone_bip[i][j] = new Bip()
+     cone_bip[i][j].soma.gkabar_IA(0.5) = 0   // USUI et al.
+   }
+ }
+
 
 // Create A2
 
-  for i = 0, na2x-1 {
-    for j = 0, na2y-1 {
-      A2_cell[i][j] = new A2()
-    }
-  }
+
+ for i = 0, na2x-1 {
+   for j = 0, na2y-1 {
+     A2_cell[i][j] = new A2()
+   }
+ }
+
+
 
 
 // Create Ganglion
 
-  for i = 0, nganx-1 {
-    for j = 0, ngany-1 {
-      GAN[i][j] = new Ganglion()
-    }
-  }
 
-
-
-//=================================================================
-//                      Add input currents	//
-//
-//=================================================================
-
-
-
-proc insert_iclamps() { local k,m,ii,jj , noise  // 1 arg - amp !!
-/*add a variable:noise (coefficient(0,1) * max_noise)*/
-
-
- InputNumber =   ($2/100)*rodtotal
-
-  printf ("\n%d Rods receiving input\n",InputNumber)
-
-  for k = 0, nrodx-1 {
-    for m = 0, nrody-1 {
-      // for healthy rod cells, save the current input and junctions
-
-      if (rod_healthy[k][m] == 1) {
-        rod[k][m].soma brightcurr[k][m] = new IinjLT(0.5)
-        brightcurr[k][m].del = stim_init
-        brightcurr[k][m].ton = 6000
-
-        brightcurr[k][m].amp =0
-
-        rod[k][m].soma dimcurr[k][m] = new IinjLTDim(0.5)
-        dimcurr[k][m].del = stim_init
-        dimcurr[k][m].ton = 6000
-
-        dimcurr[k][m].ssI=0
-        dimcurr[k][m].amp =0
-      }
-	}
+ for i = 0, nganx-1 {
+   for j = 0, ngany-1 {
+     GAN[i][j] = new Ganglion()
    }
+ }
 
 
 
- for k = 0, nconex-1 {   // Dark current in cones
-    for m = 0, nconey-1 {
-      cone[k][m].soma input_cone[k][m] = new IinjLT_cone(0.5)
-      input_cone[k][m].amp=0
-      input_cone[k][m].del = 0
-      input_cone[k][m].ton = 6000
-	}
-   }
 
-for i=0,InputNumber {
 
-  ii = int(random.uniform(0, nrodx))
-  if (ii == nrodx ) { ii=nrodx-1 }
-  jj = int(random.uniform(0, nrody))
-
-  if (jj == nrody ) { jj=nrody-1 }
-
-  if (rod_healthy[ii][jj] == 1) {
-    //add noise in current
-    //noise = Max_noise * noise_coe.repick()
-
-    if ($1>=30) {
-
-    brightcurr[ii][jj].amp = $1 }else{
-    dimcurr[ii][jj].amp = $1  }
-    i=i+1
-  }
-
-	}
-
-} // end proc
 
 //=================================================================
-//                      Change Ih conductance	changed!!
+//                      Add input currents                  //
 //=================================================================
 
-proc block_ih(){
-//add Ih
-Increase_Ih_factor = 0.1 /*//?*/
-for i = 0, nrodx-1 {
-    for j = 0, nrody-1 {
-      // for healthy rods, create Ih
-      if (rod_healthy[i][j] == 1) {
-        rod[i][j].soma.ghbar_h=$1 * (1+Increase_Ih_factor)
+
+
+proc insert_iclamps() { local k,m,ii,jj   // 1 arg - amp
+count = 0 // loop 1: see if the cell is healthy;loop2: see it's bright or dark
+ while (count < InputNumber) {
+     ii = int(random.uniform(0, nrodx))
+     if (ii == nrodx) {
+      ii = nrodx - 1
+     }
+     jj = int(random.uniform(0, nrody))
+     if (jj == nrody) {
+     jj = nrody - 1
+     }
+
+
+     rod_healthy[10][10] = 1
+     cone_healthy[2][3] = 1
+     
+
+
+     if (rod_healthy[ii][jj] == 1) {
+         if ($1 >= 30) {
+             brightcurr[ii][jj].amp = $1
+             dimcurr[ii][jj].amp    = 0
+         } else {
+             dimcurr[ii][jj].amp    = $1
+             brightcurr[ii][jj].amp = 0
+         }
+         count = count + 1
+     } else {
+         brightcurr[ii][jj].amp = 0
+         dimcurr[ii][jj].amp    = 0
+     }
+
+
+
+     if (cone_healthy[ii][jj] == 1) {
+         if ($1 >= 30) {
+             brightcurr[ii][jj].amp = $1
+             dimcurr[ii][jj].amp    = 0
+         } else {
+             dimcurr[ii][jj].amp    = $1
+             brightcurr[ii][jj].amp = 0
+         }
+         count = count + 1
+     } else {
+         brightcurr[ii][jj].amp = 0
+         dimcurr[ii][jj].amp    = 0
+     }
+
+
+ }
+
+
+InputNumber =   ($2/100)*rodtotal
+
+
+ printf ("\n%d Rods receiving input\n",InputNumber)
+
+
+
+
+   for k = 0, nrodx-1 {
+   for m = 0, nrody-1 {
+     // for healthy rod cells, save the current input and junctions
+
+
+     if (rod_healthy[k][m] == 1) {
+       rod[k][m].soma brightcurr[k][m] = new IinjLT(0.5)
+       brightcurr[k][m].del = stim_init
+       brightcurr[k][m].ton = 6000
+
+
+       brightcurr[k][m].amp =0
+
+
+       rod[k][m].soma dimcurr[k][m] = new IinjLTDim(0.5)
+       dimcurr[k][m].del = stim_init
+       dimcurr[k][m].ton = 6000
+
+
+       dimcurr[k][m].ssI=0
+       dimcurr[k][m].amp =0
+       }else{
+       rod[k][m].soma brightcurr[k][m] = new IinjLT(0.5) // in progress update it's 0
+       brightcurr[k][m].del = stim_init
+       brightcurr[k][m].ton = 6000
+       brightcurr[k][m].amp =0
+       rod[k][m].soma dimcurr[k][m] = new IinjLTDim(0.5) // in progress update it's 0
+       dimcurr[k][m].del = stim_init
+       dimcurr[k][m].ton = 6000
+       dimcurr[k][m].ssI=0
+       dimcurr[k][m].amp =0
+       }
       }
-    }
+     }
+
+
+
+
+for k = 0, nconex-1 {   // Dark current in cones
+   for m = 0, nconey-1 {
+     cone[k][m].soma input_cone[k][m] = new IinjLT_cone(0.5)
+     input_cone[k][m].amp=0
+     input_cone[k][m].del = 0
+     input_cone[k][m].ton = 6000
+   }
   }
+
+
+
+ count = 0 // loop 1: see if the cell is healthy;loop2: see it's bright or dark
+   while (count < InputNumber) {
+       ii = int(random.uniform(0, nrodx))
+       if (ii == nrodx) {
+        ii = nrodx - 1
+       }
+       jj = int(random.uniform(0, nrody))
+       if (jj == nrody) {
+       jj = nrody - 1
+       }
+
+
+       rod_healthy[10][10] = 1
+       rod_healthy[40][25] = 0
+
+
+       if (rod_healthy[ii][jj] == 1) {
+           if ($1 >= 30) {
+               brightcurr[ii][jj].amp = $1
+               dimcurr[ii][jj].amp    = 0
+           } else {
+               dimcurr[ii][jj].amp    = $1
+               brightcurr[ii][jj].amp = 0
+           }
+           count = count + 1
+       } else {
+           brightcurr[ii][jj].amp = 0
+           dimcurr[ii][jj].amp    = 0
+       }
+
+
+       
+ }// end proc
 }
 
-  printf("\n")
-  // Access a soma section of an arbitrary cell
-  // Assuming a rod at [0][0] is created or another cell is used for initial access
-  access rod[0][0].soma
+
+//=================================================================
+//                      Change Ih conductance                   //
+//=================================================================
+
+
+proc block_ih(){
+
+
+for i = 0, nrodx-1 {
+   for j = 0, nrody-1 {
+     rod[i][j].soma.ghbar_h=$1
+   }
+ }
+}
+
+
+ printf("\n")
+ access rod[0][0].soma
+
 
 printf ("%d Rods created\n",rodtotal)
 printf ("%d Cones created\n",conetotal)
 printf ("%d Bipolar cells created\n",nrodbipx*nrodbipy)
 printf ("%d A2 Amacrine cells created\n",A2total)
 printf ("%d Ganglion cells created\n",gantotal)
+
