@@ -27,8 +27,8 @@ random = new Random(seed)
 //=================================================================
 // we try to randomly pick some cells to dead mode (lose junctions?
 //10% of the rod cells are healthy, others are dead
-rod_left = 0.1 //0.1
-cone_left = 0.4 //0.05
+rod_left = 0.1 //
+cone_left = 0.5 //
 
 
 
@@ -158,10 +158,6 @@ count = 0 // loop 1: see if the cell is healthy;loop2: see it's bright or dark
      if (jj == nrody) {
      jj = nrody - 1
      }
-
-
-     rod_healthy[10][10] = 1
-
 
      if (rod_healthy[ii][jj] == 1) {
          if ($1 >= 30) {

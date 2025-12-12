@@ -7,7 +7,7 @@ load_file("netconnection.hoc")
 //============================Simulation Control=======================
 
 // Object references for saving and replaying data
-objref savefile, voltage_replay_vec, voltage_matrix, line, voltage_vecs
+objref savefile, voltage_replay_vec, voltage_matrix, line, voltage_vecs, t_rec_gan, v_gan, f_rec_gan
 
 // Flag to control whether to replay voltage
 USE_VOLTAGE_REPLAY = 1  // Set to 1 to enable replay, 0 to run normal simulation
@@ -38,7 +38,7 @@ A2_gaps(0.25)   // defined at netconnection.hoc
 Glursyn()       // defined at netconnection.hoc
 
 
-load_file("session.ses")  // Only load GUI session for normal runs
+load_file("session.ses")
 
 
 // Check if we should replay voltage
@@ -46,8 +46,27 @@ if (USE_VOLTAGE_REPLAY) {
     replay_all_bipolar_voltages()
 }
 
+// record the ganglion cell output(only 1x1 ganglion cell)
+
+t_rec_gan = new Vector()
+v_gan = new Vector()
+
+t_rec_gan.record(&t)
+GAN[0][0].soma v_gan.record(&v(0.5))
+print "Record ganglion cell (1x1) output..."
+
+
 init()
 run()
+
+// save the ganglion recording into file
+f_rec_gan = new File()
+f_rec_gan.wopen("GAN00_trace_mild_R40C70.txt")
+for i = 0, t_rec_gan.size()-1 {
+   f_rec_gan.printf("%g %g\n", t_rec_gan.x[i], v_gan.x[i])
+   }
+f_rec_gan.close()
+print "saved the ganglion cell output data .txt"
 
 // Save bipolar cell voltages after simulation (only if not replaying)
 if (!USE_VOLTAGE_REPLAY) {
@@ -162,7 +181,7 @@ proc replay_all_bipolar_voltages() {  local i, j, t, num_timepoints, num_cells, 
 tstop=1
 run()
 init()
-tstop=5000
+tstop=10000
 
 xpanel("Publio et al. 2009")
 xlabel("Press below button to start simulation:")
